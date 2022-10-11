@@ -1,0 +1,64 @@
+<div class="main_container">
+  <div class="information">
+    <h2>スケジュール一覧</h2>
+  </div>
+
+  <% if flash[:notice] %>
+  <p class="notice"><%= flash[:notice] %></p>
+  <% end %>
+
+  <table>
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>タイトル</th>
+        <th>開始日</th>
+        <th>終了日</th>
+        <th>終日</th>
+        <th>スケジュール更新日時</th>
+        <th>確認</th>
+        <th>編集</th>
+        <th>削除</th>
+      </tr>
+    </thead>
+ 
+    <tbody>
+      <% @lists.each do |list| %>
+        <tr>
+          <td><%= list.id %></td>
+          <td><%= list.title %></td>
+          <td><%= list.start_day %></td>
+          <td><%= list.end_day %></td>
+          <td>
+           <% if list.all_day == true %>
+             ○
+           <% else %>
+
+           <% end %>
+          </td>
+          <td><%= list.updated_at.to_s(:datetime_jp) %></td>
+          <td>
+           <%= link_to "確認", list %>
+          </td>
+          <td>
+           <%= link_to "編集", [:edit, list] %>
+          </td>
+          <td>
+           <%= link_to "削除", list, method: :delete, data: { confirm: "本当に削除しますか？" } %>
+          </td>
+
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+ <p><%= link_to "スケジュール新規登録", :new_list %></p>
+ </div>
+ 
+ <footer>
+  <h1>現在の日時：　<%= Date.current.strftime("%Y年 %m月 %d日") %>
+   スケジュール合計：　<%= @count %>
+  </h1>
+</footer>
+
+ 

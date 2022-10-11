@@ -1,0 +1,43 @@
+<h3>スケジュール編集</h3>
+<%= render "shared/error", obj: @list %> <!--ここを追加する-->
+
+<%= form_with model: @list do |f| %>
+  <table>
+    <tr>
+      <th><%= f.label :title ,"タイトル" %></th>
+      <td><%= f.text_field :title %></td>
+    </tr>
+    <tr>
+      <th><%= f.label :start_day ,"開始日" %></th>
+      <td><%= f.date_field :start_day %></td>
+    </tr>
+    <tr>
+      <th><%= f.label :end_day ,"終了日" %></th>
+      <td><%= f.date_field :end_day %></td>
+    </tr>
+    <tr>
+      <th><%= f.label :all_day ,"終日" %></th>
+      <td>
+       <%= f.hidden_field :all_day, :value => false %>
+       <%= f.check_box :all_day, {}, true, false %><br>
+           <%= "終日の場合はチェックを入れます" %>
+      </td>
+    </tr>
+
+    <tr>
+      <th><%= f.label :memo ,"スケジュールメモ" %></th>
+      <td><%= f.text_area :memo %></td>
+    </tr>
+  </table>
+
+  <div>
+    <ul>
+      <li><%= f.submit "編集を完了する" %></li>
+      <li><%= link_to "スケジュール情報一覧に戻る", :lists %></li>
+    </ul>
+  </div>
+ <% end %>
+
+ <footer>
+  <h1>現在の日時：　<%= Date.current.strftime("%Y年 %m月 %d日") %></h1>
+</footer>
